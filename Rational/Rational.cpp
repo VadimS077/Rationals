@@ -2,23 +2,41 @@
 //
 
 #include "Rational.h"
+
+
+
 	
-Rational::Rational() {}
+Rational::Rational() {
+	num = 1;
+	denom = 1;
+}
 Rational::Rational(int n) {
 	num = n;
 	denom = 1;
 }
 Rational::Rational(int n, int d) {
+	
+	
 	num = n;
 	denom = d;
+	if (denom == 0) {
+		throw std::invalid_argument("denom=0");
+	}
+	
+	
 }
+
 int Rational::nod(int n, int d) {
-	num = n;
-	denom = d;
-	while (num && denom)
-		if (num > denom) num %= denom;
-		else denom %= num;
-	return num + denom;
+	if (d == 0) {
+		throw std::invalid_argument("denom=0");
+		
+	}
+	while (d != 0) {
+		int temp = d;
+		d = n % d;
+		n = temp;
+	}
+	return std::abs(n);
 }
 Rational& Rational::reducing() {
 	int dev = nod(num,denom);
@@ -112,8 +130,45 @@ bool operator!=(Rational lhs, const Rational& rhs) {
 	lhs -= rhs;
 	return !(lhs.zero());
 }
+std::ostream& operator<<(std::ostream& ostrm, const Rational& rat) {
+	return rat.writeto(ostrm);
+}
+std::ostream& Rational::writeto(std::ostream& ostrm) const {
+	ostrm << num << sep << denom;
+	if (denom == 0) {
+		throw std::invalid_argument("denom=0");
+	}
+	return ostrm;
+
+}
+std::istream& operator>>(std::istream& istrm, Rational& rat) {
+	return rat.readfrom(istrm);
+}
+std::istream& Rational::readfrom(std::istream& istrm) {
+	char sep = 0;
+	int numer = 0;
+	int denomer = 1;
+	istrm >> numer >> sep >> denomer;
+	if (denomer == 0) {
+		throw std::invalid_argument("denom=0");
+	}
+	if (istrm.good()) {
+		if (sep == Rational::sep) {
+			num = numer;
+			denom = denomer;
+
+		}
+		else {
+			istrm.setstate(std::ios_base::failbit);
+		}
+
+	}
+	return istrm;
+}
 
 
+	
+	
 
 
 

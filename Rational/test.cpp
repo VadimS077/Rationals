@@ -1,8 +1,14 @@
 #include "Rational.h"
+#include<iostream>
 int main() {
-	Rational r(1, 3);
-	Rational b(1, 2);
-	r -= b;
-	r.reducing();
-	std::cout << 8;
+	
+	Rational b(1,0);
+	Rational r(5);
+	r += b;
+	
+
+	
+	
+	std::cout << r;
+	return 0;
 }

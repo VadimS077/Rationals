@@ -3,8 +3,9 @@
 
 #pragma once
 
-#include <iostream>
-#include <sstream>
+
+#include <iosfwd>
+
 
 
 class Rational {

@@ -3,8 +3,9 @@
 int main() {
 	
 	Rational b(1,0);
-	Rational r(5);
+	Rational r(1,1);
 	r += b;
+
 	
 
 	

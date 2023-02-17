@@ -2,6 +2,7 @@
 //
 
 #include "Rational.h"
+#include <iostream>
 
 
 
@@ -15,13 +16,17 @@ Rational::Rational(int n) {
 	denom = 1;
 }
 Rational::Rational(int n, int d) {
+	if(d == 0) {
+		throw std::invalid_argument("denom=0");
+
+		std::cerr << "Error:denom=0";
+	}
 	
-	
+
 	num = n;
 	denom = d;
-	if (denom == 0) {
-		throw std::invalid_argument("denom=0");
-	}
+	
+	
 	
 	
 }
@@ -29,6 +34,7 @@ Rational::Rational(int n, int d) {
 int Rational::nod(int n, int d) {
 	if (d == 0) {
 		throw std::invalid_argument("denom=0");
+		std::cerr << "Error:denom=0";
 		
 	}
 	while (d != 0) {
@@ -137,8 +143,11 @@ std::ostream& Rational::writeto(std::ostream& ostrm) const {
 	ostrm << num << sep << denom;
 	if (denom == 0) {
 		throw std::invalid_argument("denom=0");
+		std::cerr << "Error:denom=0";
 	}
+	
 	return ostrm;
+	
 
 }
 std::istream& operator>>(std::istream& istrm, Rational& rat) {
@@ -151,6 +160,7 @@ std::istream& Rational::readfrom(std::istream& istrm) {
 	istrm >> numer >> sep >> denomer;
 	if (denomer == 0) {
 		throw std::invalid_argument("denom=0");
+		std::cerr << "Error:denom=0";
 	}
 	if (istrm.good()) {
 		if (sep == Rational::sep) {

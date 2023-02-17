@@ -12,6 +12,7 @@ class Rational {
 private:
 	int num;
 	int denom;
+	static const char sep = '/';
 	
 
 
@@ -19,7 +20,6 @@ public:
 	Rational();
 	Rational(int n);
 	Rational(int n, int d);
-	static const char sep = '/';
 	int nod(int num, int denom);
 	Rational& reducing();
 	bool zero();

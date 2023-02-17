@@ -1,7 +1,7 @@
 ﻿// Rational.cpp: определяет точку входа для приложения.
 //
 
-#include "Rational.h"
+#include "Rational.hpp"
 #include <iostream>
 
 

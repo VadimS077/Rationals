@@ -3,12 +3,14 @@
 
 #include "Rational.hpp"
 #include <iostream>
+#include <cassert>
+
 
 
 
 	
 Rational::Rational() {
-	num = 1;
+	num = 0;
 	denom = 1;
 }
 Rational::Rational(int n) {
@@ -16,11 +18,7 @@ Rational::Rational(int n) {
 	denom = 1;
 }
 Rational::Rational(int n, int d) {
-	if(d == 0) {
-		throw std::invalid_argument("denom=0");
-
-		std::cerr << "Error:denom=0";
-	}
+	assert(d != 0);
 	
 
 	num = n;
@@ -30,13 +28,17 @@ Rational::Rational(int n, int d) {
 	
 	
 }
+int Rational::numer(){
+	return num;
+	
+}
+int Rational::denomer() {
+	return denom;
+}
+
 
 int Rational::nod(int n, int d) {
-	if (d == 0) {
-		throw std::invalid_argument("denom=0");
-		std::cerr << "Error:denom=0";
-		
-	}
+	assert(d != 0);
 	while (d != 0) {
 		int temp = d;
 		d = n % d;
@@ -141,10 +143,7 @@ std::ostream& operator<<(std::ostream& ostrm, const Rational& rat) {
 }
 std::ostream& Rational::writeto(std::ostream& ostrm) const {
 	ostrm << num << sep << denom;
-	if (denom == 0) {
-		throw std::invalid_argument("denom=0");
-		std::cerr << "Error:denom=0";
-	}
+	assert(denom != 0);
 	
 	return ostrm;
 	
@@ -158,10 +157,7 @@ std::istream& Rational::readfrom(std::istream& istrm) {
 	int numer = 0;
 	int denomer = 1;
 	istrm >> numer >> sep >> denomer;
-	if (denomer == 0) {
-		throw std::invalid_argument("denom=0");
-		std::cerr << "Error:denom=0";
-	}
+	assert(denomer != 0);
 	if (istrm.good()) {
 		if (sep == Rational::sep) {
 			num = numer;
@@ -175,6 +171,7 @@ std::istream& Rational::readfrom(std::istream& istrm) {
 	}
 	return istrm;
 }
+
 
 
 	

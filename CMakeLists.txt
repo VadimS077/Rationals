@@ -1,9 +1,19 @@
-﻿# CMakeList.txt: файл проекта CMake верхнего уровня; проведите глобальную конфигурацию
-# и включите сюда подпроекты.
-#
+﻿
 cmake_minimum_required (VERSION 3.8)
 
-project ("Rational")
+project ("Rationals")
 
-# Включите подпроекты.
+set_property(GLOBAL PROPERTY USE_FOLDERS ON) 
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "cmake") 
+ 
+include_directories(.) 
 add_subdirectory ("Rational")
+ 
+ 
+add_executable(test "test.cpp") 
+set_property(TARGET test PROPERTY CXX_STANDARD 20) 
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT test) 
+target_link_libraries(test Rational)
+
+
+

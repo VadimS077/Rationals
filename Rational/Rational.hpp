@@ -25,7 +25,8 @@ public:
 	bool zero();
 	bool negative();
 	bool positive();
-	void problem();
+	int numer();
+	int denomer();
 public:
     Rational& operator=(const Rational& rhs);
     Rational& operator+=(const Rational& rhs);

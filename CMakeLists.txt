@@ -10,10 +10,10 @@ include_directories(.)
 add_subdirectory ("Rational")
  
  
-add_executable(test "test.cpp") 
-set_property(TARGET test PROPERTY CXX_STANDARD 20) 
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT test) 
-target_link_libraries(test Rational)
+add_executable(tester "tester.cpp") 
+set_property(TARGET tester PROPERTY CXX_STANDARD 20) 
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT tester) 
+target_link_libraries(tester Rational)
 
 
 

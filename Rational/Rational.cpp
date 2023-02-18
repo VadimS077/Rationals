@@ -1,7 +1,6 @@
-﻿// Rational.cpp: определяет точку входа для приложения.
-//
+﻿
 
-#include "Rational.hpp"
+#include <Rational/Rational.hpp>
 #include <iostream>
 #include <cassert>
 
@@ -91,18 +90,22 @@ Rational& Rational::operator/=(const Rational& rhs) {
 }
 Rational operator+(Rational lhs, const Rational& rhs) {
 	lhs += rhs;
+	lhs.Rational::reducing();
 	return lhs;
 }
 Rational operator-(Rational lhs, const Rational& rhs) {
 	lhs -= rhs;
+	lhs.Rational::reducing();
 	return lhs;
 }
 Rational operator*(Rational lhs, const Rational& rhs) {
 	lhs *= rhs;
+	lhs.Rational::reducing();
 	return lhs;
 }
 Rational operator/(Rational lhs, const Rational& rhs) {
 	lhs /= rhs;
+	lhs.Rational::reducing();
 	return lhs;
 }
 bool Rational::zero() {
@@ -115,29 +118,54 @@ bool Rational::positive() {
 	return num > 0;
 }
 bool operator==(Rational lhs, const Rational& rhs) {
-	lhs -= rhs;
-	return lhs.zero();
+	Rational res=lhs-rhs;
+
+	return res.Rational::zero();
 }
 bool operator>(Rational lhs, const Rational& rhs) {
-	lhs -= rhs;
-	return lhs.positive();
+	Rational res = lhs - rhs;
+	return res.Rational::positive();
 }
 bool operator<(Rational lhs, const Rational& rhs) {
-	lhs -= rhs;
-	return lhs.negative();
+	Rational res = lhs - rhs;
+	return res.Rational::negative();
 }
-bool operator>=(Rational lhs, const Rational& rhs) {
-	lhs -= rhs;
-	return lhs.positive() || lhs.zero();
+bool operator!=(const Rational& lhs,const Rational& rhs) {
+	return !operator==(lhs, rhs);
 }
-bool operator<=(Rational lhs, const Rational& rhs) {
-	lhs -= rhs;
-	return lhs.zero() || lhs.negative();
+bool operator<=(const Rational& lhs,const Rational& rhs) {
+	return !operator>(lhs, rhs);
 }
-bool operator!=(Rational lhs, const Rational& rhs) {
-	lhs -= rhs;
-	return !(lhs.zero());
+bool operator>=(const Rational& lhs,const Rational& rhs) {
+	return !operator<(lhs, rhs);
 }
+Rational& Rational::operator++() {
+	*this += 1;
+	return *this;
+}
+Rational Rational::operator++(int) {
+	Rational tmp(*this);
+	num+=denom;
+	return tmp;
+}
+Rational& Rational::operator--() {
+	*this -= 1;
+	return *this;
+}
+Rational Rational::operator--(int) {
+	Rational tmp(*this);
+	num-=denom;
+	return tmp;
+}
+Rational Rational::operator+() {
+	return *this;
+}
+Rational Rational::operator-() {
+	Rational a(-1);
+	*this *= a;
+	return *this;
+}
+
 std::ostream& operator<<(std::ostream& ostrm, const Rational& rat) {
 	return rat.writeto(ostrm);
 }
